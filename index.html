@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SUPERKEY REALPOOH</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Baloo 2',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(135deg,#0f172a,#1e1b4b);
+
+    color:white;
+}
+
+
+/* กล่องหลัก */
+
+.container{
+
+    width:390px;
+    padding:35px;
+
+    background:rgba(255,255,255,0.12);
+
+    border-radius:30px;
+
+    backdrop-filter:blur(15px);
+
+    border:2px solid rgba(255,255,255,.2);
+
+    box-shadow:
+    0 0 30px rgba(0,255,255,.3);
+
+    animation:fade .8s;
+
+}
+
+
+@keyframes fade{
+
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+
+/* หัวข้อ */
+
+.logo{
+
+text-align:center;
+
+font-size:36px;
+
+font-weight:800;
+
+color:#7df9ff;
+
+text-shadow:
+0 0 10px #00ffff,
+0 0 25px #00ffff;
+
+}
+
+
+
+.subtitle{
+
+text-align:center;
+
+margin-top:5px;
+
+color:#ddd;
+
+font-size:18px;
+
+}
+
+
+
+
+select{
+
+width:100%;
+
+padding:15px;
+
+margin-top:20px;
+
+border-radius:18px;
+
+border:none;
+
+outline:none;
+
+font-size:18px;
+
+background:#111827;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+
+
+button{
+
+width:100%;
+
+margin-top:25px;
+
+padding:15px;
+
+border:none;
+
+border-radius:20px;
+
+font-size:20px;
+
+font-weight:700;
+
+background:
+linear-gradient(45deg,#00ffff,#8b5cf6);
+
+cursor:pointer;
+
+transition:.3s;
+
+box-shadow:0 0 20px cyan;
+
+}
+
+
+button:hover{
+
+transform:scale(1.05);
+
+}
+
+
+
+.result{
+
+margin-top:25px;
+
+padding:18px;
+
+background:#020617;
+
+border-radius:20px;
+
+text-align:center;
+
+font-size:20px;
+
+color:#86efac;
+
+border:2px solid #22c55e;
+
+word-break:break-all;
+
+}
+
+
+
+.footer{
+
+margin-top:25px;
+
+text-align:center;
+
+font-size:14px;
+
+color:#aaa;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="logo">
+SUPERKEY REALPOOH
+</div>
+
+
+<div class="subtitle">
+✨ Premium Code Generator ✨
+</div>
+
+
+
+<select id="type" onchange="updateTime()">
+
+<option value="h">
+⏰ ชั่วโมง
+</option>
+
+<option value="d">
+📅 วัน
+</option>
+
+<option value="m">
+🌙 เดือน
+</option>
+
+<option value="perm">
+💎 ถาวร
+</option>
+
+</select>
+
+
+
+<select id="time"></select>
+
+
+
+<button onclick="generate()">
+🎀 สร้างรหัส
+</button>
+
+
+
+<div class="result" id="code">
+ยังไม่มีรหัส
+</div>
+
+
+
+<div class="footer">
+💙 REALPOOH PROJECT
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+function updateTime(){
+
+let type=document.getElementById("type").value;
+
+let time=document.getElementById("time");
+
+time.innerHTML="";
+
+
+if(type=="h"){
+
+for(let i=1;i<=12;i++){
+
+time.innerHTML+=
+`<option>${i} ชั่วโมง</option>`;
+
+}
+
+}
+
+
+else if(type=="d"){
+
+for(let i=1;i<=30;i++){
+
+time.innerHTML+=
+`<option>${i} วัน</option>`;
+
+}
+
+}
+
+
+else if(type=="m"){
+
+for(let i=1;i<=12;i++){
+
+time.innerHTML+=
+`<option>${i} เดือน</option>`;
+
+}
+
+}
+
+
+else{
+
+time.innerHTML=
+"<option>ถาวร</option>";
+
+}
+
+}
+
+
+updateTime();
+
+
+
+let codes=[];
+
+
+function randomText(){
+
+let chars=
+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+
+let length=
+Math.floor(Math.random()*9)+12;
+
+
+let text="";
+
+
+for(let i=0;i<length;i++){
+
+text+=chars[
+Math.floor(Math.random()*chars.length)
+];
+
+}
+
+
+return text;
+
+}
+
+
+
+function generate(){
+
+
+let type=
+document.getElementById("type").value;
+
+
+let value=
+document.getElementById("time").value;
+
+
+
+let prefix="";
+
+
+if(type=="h")
+prefix="H"+value.split(" ")[0];
+
+
+if(type=="d")
+prefix="D"+value.split(" ")[0];
+
+
+if(type=="m")
+prefix="M"+value.split(" ")[0];
+
+
+if(type=="perm")
+prefix="PERM";
+
+
+
+let code;
+
+
+do{
+
+code=
+"RP-"+prefix+"-"+randomText();
+
+}
+
+while(codes.includes(code));
+
+
+
+codes.push(code);
+
+
+
+document.getElementById("code").innerHTML=
+"💖 "+code;
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>
