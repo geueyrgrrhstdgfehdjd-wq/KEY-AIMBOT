@@ -3,107 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Key Generator with Duration</title>
+    <title>TERMINAL KEYGEN_</title>
+    <!-- นำเข้าฟอนต์สไตล์ Retro Terminal -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
+        /* ตั้งค่าสีพื้นฐาน ดำ-เขียว */
+        :root {
+            --term-bg: #000000;
+            --term-fg: #00ff00;
+            --term-glow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f6f8fa;
-            color: #24292f;
+            font-family: 'VT323', monospace;
+            background-color: var(--term-bg);
+            color: var(--term-fg);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            /* เอฟเฟกต์เส้นจอมอนิเตอร์แบบบางๆ (Scanlines) */
+            background-image: linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+            background-size: 2px 2px;
         }
 
         .card {
-            background: #ffffff;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            padding: 24px;
+            background: var(--term-bg);
+            border: 2px solid var(--term-fg);
+            padding: 30px;
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 3px 6px rgba(140, 149, 159, 0.15);
+            max-width: 450px;
+            box-shadow: var(--term-glow);
+            position: relative;
+        }
+
+        /* แต่งขอบการ์ดให้ดูเหมือนหน้าต่าง Terminal */
+        .card::before {
+            content: "N-LITE // SYS.KEYGEN";
+            position: absolute;
+            top: -12px;
+            left: 10px;
+            background: var(--term-bg);
+            padding: 0 10px;
+            font-size: 20px;
+            text-shadow: var(--term-glow);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            margin-top: 15px;
         }
 
         label {
             display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
+            margin-bottom: 10px;
+            font-size: 22px;
+            text-shadow: var(--term-glow);
+            text-transform: uppercase;
         }
 
         .input-group {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             align-items: center;
         }
 
         select, input[type="number"], input[type="text"] {
-            padding: 6px 12px;
-            font-size: 14px;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            background-color: #f6f8fa;
-            color: #24292f;
+            padding: 8px 12px;
+            font-size: 22px;
+            font-family: 'VT323', monospace;
+            border: 1px solid var(--term-fg);
+            background-color: var(--term-bg);
+            color: var(--term-fg);
             outline: none;
-            transition: border-color 0.2s;
+            box-shadow: var(--term-glow);
+            transition: all 0.2s;
+        }
+
+        select {
+            cursor: pointer;
         }
 
         select:focus, input[type="number"]:focus, input[type="text"]:focus {
-            border-color: #0969da;
-            background-color: #ffffff;
+            background-color: #001a00;
+            border-width: 2px;
         }
 
         input[type="number"] {
-            width: 80px;
+            width: 70px;
+            text-align: center;
+        }
+
+        /* ซ่อนลูกศรในช่องตัวเลข */
+        input[type="number"]::-webkit-inner-spin-button, 
+        input[type="number"]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
         }
 
         .hint-text {
-            font-size: 12px;
-            color: #57606a;
-            margin-top: 8px;
+            font-size: 18px;
+            color: #00aa00;
+            margin-top: 10px;
         }
 
         .btn {
-            background-color: #2da44e;
-            color: white;
-            border: 1px solid rgba(27, 31, 36, 0.15);
-            border-radius: 6px;
-            padding: 8px 16px;
-            font-size: 14px;
-            font-weight: 600;
+            background-color: var(--term-bg);
+            color: var(--term-fg);
+            border: 2px solid var(--term-fg);
+            padding: 10px 16px;
+            font-size: 24px;
+            font-family: 'VT323', monospace;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.2s;
+            text-transform: uppercase;
+            box-shadow: var(--term-glow);
+            transition: all 0.2s;
+            margin-top: 15px;
+            letter-spacing: 2px;
         }
 
         .btn:hover {
-            background-color: #2c974b;
+            background-color: var(--term-fg);
+            color: var(--term-bg);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
         }
 
         .result-group {
-            margin-top: 20px;
+            margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid #d0d7de;
+            border-top: 1px dashed var(--term-fg);
         }
 
         .key-display {
             width: 100%;
-            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-            font-size: 16px;
+            font-size: 28px;
             text-align: center;
-            letter-spacing: 2px;
-            font-weight: bold;
-            color: #0969da;
-            background-color: #ddf4ff;
-            border-color: #0969da;
-            padding: 10px;
+            letter-spacing: 3px;
+            background-color: #001100;
+            border: 2px solid var(--term-fg);
+            padding: 15px;
             box-sizing: border-box;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
     </style>
 </head>
@@ -112,36 +168,36 @@
     <div class="card">
         <!-- ส่วนเลือกระยะเวลา -->
         <div class="form-group">
-            <label for="durationType">กำหนดระยะเวลาของ Key</label>
+            <label for="durationType">> SET_DURATION <span class="cursor-blink">_</span></label>
             <div class="input-group">
                 <select id="durationType" onchange="updateDurationLogic()">
-                    <option value="hour">ชั่วโมง</option>
-                    <option value="day">วัน</option>
-                    <option value="month">เดือน</option>
-                    <option value="permanent">ถาวร</option>
+                    <option value="hour">HOURS</option>
+                    <option value="day">DAYS</option>
+                    <option value="month">MONTHS</option>
+                    <option value="permanent">PERMANENT</option>
                 </select>
 
                 <input type="number" id="durationValue" min="1" max="12" value="1" oninput="enforceMaxValue(this)">
-                <span id="unitText" style="font-size: 14px;">ชั่วโมง</span>
+                <span id="unitText" style="font-size: 22px;">HRS</span>
             </div>
-            <div class="hint-text" id="hintText">กรุณาระบุตั้งแต่ 1 ถึง 12 ชั่วโมง</div>
+            <div class="hint-text" id="hintText">>> RANGE: [1 - 12] (CODE: H)</div>
         </div>
 
         <!-- ปุ่มสร้างคีย์ -->
-        <button class="btn" onclick="generateKey()">สร้างคีย์ (Generate Key)</button>
+        <button class="btn" onclick="generateKey()">[ EXECUTE KEYGEN ]</button>
 
         <!-- ส่วนแสดงผลคีย์ที่สร้าง -->
         <div class="result-group">
-            <label for="generatedKey">คีย์ที่สร้างสำเร็จ (12-20 ตัวอักษร):</label>
-            <input type="text" id="generatedKey" class="key-display" readonly placeholder="XXXX-XXXX-XXXX">
+            <label for="generatedKey">> OUTPUT_KEY:</label>
+            <input type="text" id="generatedKey" class="key-display" readonly placeholder="AWAITING INPUT...">
         </div>
     </div>
 
     <script>
         const durationRules = {
-            hour: { max: 12, unit: "ชั่วโมง", hint: "กรุณาระบุตั้งแต่ 1 ถึง 12 ชั่วโมง", code: "H" },
-            day: { max: 30, unit: "วัน", hint: "กรุณาระบุตั้งแต่ 1 ถึง 30 วัน", code: "D" },
-            month: { max: 12, unit: "เดือน", hint: "กรุณาระบุตั้งแต่ 1 ถึง 12 เดือน", code: "M" }
+            hour: { max: 12, unit: "HRS", hint: ">> RANGE: [1 - 12]", code: "H" },
+            day: { max: 30, unit: "DAYS", hint: ">> RANGE: [1 - 30]", code: "D" },
+            month: { max: 12, unit: "MTHS", hint: ">> RANGE: [1 - 12]", code: "M" }
         };
 
         function updateDurationLogic() {
@@ -153,14 +209,14 @@
             if (type === "permanent") {
                 input.style.display = "none";
                 unitText.style.display = "none";
-                hintText.textContent = "สิทธิ์การใช้งานแบบไม่มีวันหมดอายุ (รหัส: PERM)";
+                hintText.textContent = ">> STATUS: UNLIMITED (CODE: PERM)";
             } else {
                 const rules = durationRules[type];
                 input.style.display = "block";
                 unitText.style.display = "block";
                 input.max = rules.max;
                 unitText.textContent = rules.unit;
-                hintText.textContent = rules.hint + ` (รหัส: ${rules.code})`;
+                hintText.textContent = `${rules.hint} (CODE: ${rules.code})`;
 
                 if (parseInt(input.value) > rules.max) input.value = rules.max;
                 if (parseInt(input.value) < 1 || !input.value) input.value = 1;
@@ -182,27 +238,13 @@
             const type = document.getElementById("durationType").value;
             const value = document.getElementById("durationValue").value;
             
-            // 1. สร้างรหัสแทรก (Duration Code)
-            let durationCode = "";
-            if (type === "permanent") {
-                durationCode = "PERM";
-            } else {
-                durationCode = durationRules[type].code + value;
-            }
-
-            // 2. สุ่มความยาวรวมของ Key ให้ได้ 12 - 20 ตัว
+            let durationCode = type === "permanent" ? "PERM" : durationRules[type].code + value;
             const totalLength = Math.floor(Math.random() * (20 - 12 + 1)) + 12;
-            
-            // 3. คำนวณหาจำนวนตัวอักษรที่ต้องสุ่มเพิ่ม (หักลบกับความยาวของ Duration Code แล้ว)
             const randomLength = totalLength - durationCode.length;
-
-            // ชุดตัวอักษรสำหรับสุ่ม (A-Z และ 0-9)
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             
             let randomPart1 = "";
             let randomPart2 = "";
-            
-            // แบ่งตัวอักษรสุ่มออกเป็น 2 ส่วน เพื่อเอา Duration Code ไปแทรกไว้ตรงกลาง
             const splitIndex = Math.floor(randomLength / 2);
             
             for (let i = 0; i < splitIndex; i++) {
@@ -213,12 +255,22 @@
                 randomPart2 += chars.charAt(Math.floor(Math.random() * chars.length));
             }
 
-            // 4. นำมารวมกัน คีย์ที่ได้จะมีความยาว 12-20 ตัวเป๊ะตามที่กำหนด
             const finalKey = randomPart1 + durationCode + randomPart2;
             
-            // แสดงผลลัพธ์
-            document.getElementById("generatedKey").value = finalKey;
+            // เอฟเฟกต์กระพริบตอนสร้างเสร็จ (Hacker Vibe)
+            const keyDisplay = document.getElementById("generatedKey");
+            keyDisplay.style.backgroundColor = "#00ff00";
+            keyDisplay.style.color = "#000000";
+            
+            setTimeout(() => {
+                keyDisplay.style.backgroundColor = "#001100";
+                keyDisplay.style.color = "#00ff00";
+                keyDisplay.value = finalKey;
+            }, 100);
         }
+
+        // Initialize setup
+        updateDurationLogic();
     </script>
 
 </body>
